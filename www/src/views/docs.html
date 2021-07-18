@@ -1,0 +1,29 @@
+<template>
+  <div class="Docs">
+    <Nav />
+    docs works</div>
+</template>
+
+<script>
+  import Nav from "../components/layout/nav.js";
+  export default class Docs {
+    constructor() {}
+    data() {
+      return {
+        name: "Docs",
+        components: {
+          Nav
+        },
+        template: this.template(),
+        style: this.style(),
+        render: this.render.bind(this),
+      };
+    }
+
+    render() {}
+  }
+</script>
+
+<style lang="scss">
+  .Docs {}
+</style>
