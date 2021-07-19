@@ -2,7 +2,6 @@ export default {
   olum: "Olumjs",
   olumDesc: "The VanillaJS developer’s platform.",
   docsLink: "Docs",
-  toolsLink: "Tools",
   faqLink: "FAQ",
   seeDocs: "See Documentation",
   simpleComp: "Simple Component",

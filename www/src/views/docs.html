@@ -8,30 +8,28 @@
 
 <script>
   import Nav from "../components/layout/nav.js";
-  import Footer from "../components/layout/footer.js";
   import Manual from "../components/manual.js";
+  import Footer from "../components/layout/footer.js";
   import { olum } from "../app.mjs";
-
-  import hljs from "highlight.js";
+  import * as hljs from "../../public/highlight.js";
   import marked from "marked";
   import { Origin, $, debug } from "olum";
 
   export default class Docs {
-    docsObj = {
-      version: "master",
-      files: [
-        "CLI",
-        "Router",
-        "Router-Methods",
-        "Create-Component",
-        "Register-Component",
-        "Create-Service",
-        "Share-Data-Between-Components",
-        "Devtool",
-        "Use-Helpers",
-        "Notes",
-      ],
-    };
+    // md files to be rendered in the docs page
+    docsArr = [
+      "CLI",
+      "Router",
+      "Router-Methods",
+      "Create-Component",
+      "Register-Component",
+      "Create-Service",
+      "Share-Data-Between-Components",
+      "Devtool",
+      "Use-Helpers",
+      "Notes",
+    ];
+    version = "master";
 
     data() {
       return {
@@ -48,33 +46,53 @@
     }
 
     render() {
+      // select stuff
       this.origin = new Origin();
       const ul = $(".Manual aside ul");
-      const links = this.filesNames.map(file => `<li><a href="#${file}" data-file="${file}">${file}</a></li>`).join("");
-      olum.freeze();
-      ul.innerHTML = links;
-      this.foo();
+
+      if (ul) {
+        const links = this.docsArr.map(file => `<li><a href="#${file}" data-file="${file}">${file}</a></li>`).join("");
+        ul.innerHTML = links;
+        olum.freeze(); // stop router default behavior
+        // event
+        ul.on("click", e => {
+          if (e.target.nodeName === "A") {
+            const file = e.target.getAttribute("data-file");
+            // reset class
+            const active = $(".Manual aside ul .active");
+            if (active) active.classList.remove("active");
+            // add class
+            e.target.classList.add("active");
+            // render docs
+            this.showDocs(file);
+          }
+        });
+        // show 1st guide
+        const firstLink = $(ul).get("li a");
+        if (firstLink) firstLink.click();
+      }
     }
 
-    foo() {
-      // const url = "https://raw.githubusercontent.com/olumjs/olum/" + this.version + "/docs/" + fileName + ".md";
-      const docsUrl = "https://raw.githubusercontent.com/olumjs/olum/master/docs/";
-      const markdownWrapper = $(".MarkdownEditor");
-      const aside = $(".Manual aside");
+    showDocs(file) {
+      const url = "https://raw.githubusercontent.com/olumjs/olum/" + this.version + "/docs/" + file + ".md";
+      const container = $(".MarkdownEditor");
 
-      // const file = e.target.getAttribute("data-file").trim();
-      //       const url = docsUrl + file + ".md";
+      // fetch docs
+      this.origin
+        .get(url)
+        .then(res => {
+          if (container) {
+            container.innerHTML = marked(res);
+            hljs.highlightAll();
+            container.scrollIntoView();
+          }
+        })
+        .catch(console.error);
+    }
 
-      //       this.origin
-      //         .get(url)
-      //         .then(res => {
-      //           debug(res);
-      //           if (markdownWrapper) {
-      //             markdownWrapper.innerHTML = marked(res);
-      //             hljs.highlightAll();
-      //           }
-      //         })
-      //         .catch(console.error);
+    getBranches() {
+      // const url = "https://api.github.com/repos/olumjs/olum/branches?protected=false&per_page=100";
+      // this.origin.get(url, {"Accept": "application/vnd.github.v3+json"}).then(debug).catch(debug);
     }
   }
 </script>

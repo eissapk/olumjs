@@ -2,7 +2,6 @@ export default {
   olum: "Olumjs",
   olumDesc: "منصة مطوري فانيلا جافاسكربت",
   docsLink: "الدليل التطبيقي",
-  toolsLink: "الأدوات",
   faqLink: "الأسئلة شائعة",
   seeDocs: "الدليل التطبيقي",
   simpleComp: "مكون بسيط",

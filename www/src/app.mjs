@@ -2,7 +2,6 @@ import { Olum, debug, $ } from "olum";
 import Home from "./views/home.js";
 import Docs from "./views/docs.js";
 import FAQ from "./views/faq.js";
-import Tools from "./views/tools.js";
 import Lang from "./views/lang.js";
 
 // translations
@@ -56,10 +55,6 @@ const routes = [
   {
     path: "/faq",
     comp: FAQ,
-  },
-  {
-    path: "/tools",
-    comp: Tools,
   },
   {
     path: "/lang",

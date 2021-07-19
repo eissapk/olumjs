@@ -12,7 +12,7 @@
 </template>
 
 <script>
-  import hljs from "highlight.js";
+  import * as hljs from "../../public/highlight.js";
   import marked from "marked";
   import { Origin, debug, $ } from "olum";
   export default class GetStarted {
@@ -64,6 +64,22 @@
 
     .code-block {
       padding-top: 50px;
+      pre {
+        max-width: 700px;
+        width: calc(100% - 20px);
+        margin: 0 auto;
+        background: $mainTextColor;
+        padding: 16px;
+        overflow: auto;
+        font-size: 85%;
+        line-height: 1.45;
+        border-radius: $radius;
+        margin-top: 0;
+        margin-bottom: 16px;
+        word-break: normal;
+        white-space: pre;
+        word-wrap: normal;
+      }
     }
   }
 </style>
