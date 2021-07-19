@@ -11,6 +11,7 @@
   import Footer from "../components/layout/footer.js";
   import Manual from "../components/manual.js";
   import { $ } from "olum";
+  import { olum } from "../app.mjs";
   import { getMD } from "../services/getmd.js";
   import filesNames from "../docs/docsfilesnames.js";
   export default class Docs {
@@ -31,7 +32,8 @@
     render() {
       const manual = $(".Manual");
       const ul = $(manual).get("aside ul");
-      const links = filesNames.map(file => `<li><a href="javascript:void(0)" data-file="${file}">${file}</a></li>`).join("");
+      const links = filesNames.map(file => `<li><a href="#${file}" data-file="${file}">${file}</a></li>`).join("");
+      olum.freeze();
       ul.innerHTML = links;
       getMD();
     }
