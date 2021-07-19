@@ -1,9 +1,11 @@
 <template>
   <div class="Lang">
     <Nav />
-    <div class="btnsWrapper">
-      <button type="button" trans-btn="ar">العربية</button>
-      <button type="button" trans-btn="en">English</button>
+    <div class="langsWrapper">
+      <div class="btnsWrapper">
+        <button type="button" trans-btn="ar">العربية</button>
+        <button type="button" trans-btn="en">English</button>
+      </div>
     </div>
     <Footer />
   </div>
@@ -54,27 +56,46 @@
 
 <style lang="scss">
   .Lang {
-    .btnsWrapper {
-      text-align: center;
-      height: calc(100vh - 110px);
-      display: grid;
-      grid-template-columns: 1fr;
-      justify-items: center;
-      align-content:center;
+    .langsWrapper {
+      height: calc(100vh - 210px);
+      width: 300px;
+      overflow: auto;
+      margin: 50px auto;
+      border-radius: $radius;
 
-      button {
-        width: 150px;
-        height: 50px;
+      &::-webkit-scrollbar {
+        width: 5px;
+        height: 5px;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background: $blue;
+        border-radius: 15px;
+      }
+
+      .btnsWrapper {
+        text-align: center;
+        display: grid;
+        grid-template-columns: 1fr;
+        justify-items: center;
+        align-content: center;
         border: 1px solid $border;
-        outline: none;
-        background: transparent;
-        border-radius: $radius;
-        margin: 5px;
-        transition: background 0.1s ease-in-out;
+        padding: 5px;
 
-        &:hover {
-          background: $blue;
-          color: $white;
+        button {
+          width: 150px;
+          height: 50px;
+          border: 1px solid $border;
+          outline: none;
+          background: transparent;
+          border-radius: $radius;
+          margin: 5px;
+          transition: background 0.1s ease-in-out;
+
+          &:hover {
+            background: $blue;
+            color: $white;
+          }
         }
       }
     }
