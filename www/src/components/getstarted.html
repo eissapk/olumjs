@@ -1,27 +1,23 @@
 <template>
   <div class="GetStarted">
-
-    <!-- simple component -->
-    <div class="code-block">
+    <!-- Simple-Component -->
+    <div class="code-block Simple-Component">
       <h1>${"simpleComp".trans()}</h1>
-      <section class="one-dark"><pre><code class="language-html">${simpleCompCode}</code></pre></section>
     </div>
-
-    <!-- quick start -->
-    <div class="code-block">
+    <!-- Quick-Start -->
+    <div class="code-block Quick-Start">
       <h1>${"quickStart".trans()}</h1>
-      <section class="one-dark"><pre><code class="language-bash">${quickStartCode}</code></pre></section>
     </div>
-
   </div>
 </template>
 
 <script>
-  import * as hljs from "../../public/highlight.js";
-  import simpleCompCode from "../docs/simplecomp.js";
-  import quickStartCode from "../docs/quickstart.js";
+  import hljs from "highlight.js";
+  import marked from "marked";
+  import { Origin, debug, $ } from "olum";
   export default class GetStarted {
-    constructor() {}
+    getStartedArr = ["Simple-Component", "Quick-Start"]; // md files & classes to be rendered in the home page
+    version = "master";
     data() {
       return {
         name: "GetStarted",
@@ -33,7 +29,24 @@
     }
 
     render() {
-      hljs.highlightAll();
+      this.origin = new Origin();
+      this.recursive();
+    }
+
+    recursive(num = 0) {
+      // select stuff
+      const fileName = this.getStartedArr[num];
+      const url = "https://raw.githubusercontent.com/olumjs/olum/" + this.version + "/docs/" + fileName + ".md";
+      const container = $(`.GetStarted .${fileName}`);
+      // fetch docs
+      this.origin
+        .get(url)
+        .then(res => {
+          if (container) container.insertAdjacentHTML("beforeend", marked(res));
+          if (num + 1 <= this.getStartedArr.length - 1) this.recursive(num + 1);
+          if (num === this.getStartedArr.length - 1) hljs.highlightAll(); // highlight after finishing all requests & dom injection
+        })
+        .catch(console.error);
     }
   }
 </script>
@@ -49,7 +62,7 @@
       margin: 0 0 20px;
     }
 
-    .code-block{
+    .code-block {
       padding-top: 50px;
     }
   }

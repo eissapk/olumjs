@@ -1,0 +1,27 @@
+<template>
+  <div class="MarkdownEditor"></div>
+</template>
+
+<script>
+  export default class MarkdownEditor {
+    data() {
+      return {
+        name: "MarkdownEditor",
+        components: {},
+        template: this.template(),
+        style: this.style(),
+        render: this.render.bind(this),
+      };
+    }
+
+    render() {
+      console.log("loaded MarkdownEditor");
+    }
+  }
+</script>
+
+<style lang="scss">
+  .MarkdownEditor {
+    outline: 1px solid red;
+  }
+</style>

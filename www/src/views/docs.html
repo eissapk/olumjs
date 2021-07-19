@@ -1,8 +1,8 @@
 <template>
   <div class="Docs">
-    <Nav />
-    <Manual />
-    <Footer />
+    <App-Nav />
+    <App-Manual />
+    <App-Footer />
   </div>
 </template>
 
@@ -10,11 +10,29 @@
   import Nav from "../components/layout/nav.js";
   import Footer from "../components/layout/footer.js";
   import Manual from "../components/manual.js";
-  import { $ } from "olum";
   import { olum } from "../app.mjs";
-  import { getMD } from "../services/getmd.js";
-  import filesNames from "../docs/docsfilesnames.js";
+
+  import hljs from "highlight.js";
+  import marked from "marked";
+  import { Origin, $, debug } from "olum";
+
   export default class Docs {
+    docsObj = {
+      version: "master",
+      files: [
+        "CLI",
+        "Router",
+        "Router-Methods",
+        "Create-Component",
+        "Register-Component",
+        "Create-Service",
+        "Share-Data-Between-Components",
+        "Devtool",
+        "Use-Helpers",
+        "Notes",
+      ],
+    };
+
     data() {
       return {
         name: "Docs",
@@ -30,12 +48,33 @@
     }
 
     render() {
-      const manual = $(".Manual");
-      const ul = $(manual).get("aside ul");
-      const links = filesNames.map(file => `<li><a href="#${file}" data-file="${file}">${file}</a></li>`).join("");
+      this.origin = new Origin();
+      const ul = $(".Manual aside ul");
+      const links = this.filesNames.map(file => `<li><a href="#${file}" data-file="${file}">${file}</a></li>`).join("");
       olum.freeze();
       ul.innerHTML = links;
-      getMD();
+      this.foo();
+    }
+
+    foo() {
+      // const url = "https://raw.githubusercontent.com/olumjs/olum/" + this.version + "/docs/" + fileName + ".md";
+      const docsUrl = "https://raw.githubusercontent.com/olumjs/olum/master/docs/";
+      const markdownWrapper = $(".MarkdownEditor");
+      const aside = $(".Manual aside");
+
+      // const file = e.target.getAttribute("data-file").trim();
+      //       const url = docsUrl + file + ".md";
+
+      //       this.origin
+      //         .get(url)
+      //         .then(res => {
+      //           debug(res);
+      //           if (markdownWrapper) {
+      //             markdownWrapper.innerHTML = marked(res);
+      //             hljs.highlightAll();
+      //           }
+      //         })
+      //         .catch(console.error);
     }
   }
 </script>

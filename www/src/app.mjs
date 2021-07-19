@@ -71,5 +71,6 @@ export const olum = new Olum({
   mode: "history",
   root: "/",
   el: "#app",
+  prefix: "app",
   routes,
 });
