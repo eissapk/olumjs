@@ -1,18 +1,22 @@
 <template>
   <div class="Docs">
     <Nav />
-    docs works</div>
+    <div class="DocsInner">${"wip".trans()}</div>
+    <Footer />
+  </div>
 </template>
 
 <script>
   import Nav from "../components/layout/nav.js";
+  import Footer from "../components/layout/footer.js";
   export default class Docs {
     constructor() {}
     data() {
       return {
         name: "Docs",
         components: {
-          Nav
+          Nav,
+          Footer,
         },
         template: this.template(),
         style: this.style(),
@@ -25,5 +29,9 @@
 </script>
 
 <style lang="scss">
-  .Docs {}
+  .Docs {
+    .DocsInner {
+      height: calc(100vh - 110px);
+    }
+  }
 </style>

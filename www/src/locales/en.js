@@ -1,0 +1,21 @@
+export default {
+  olum: "Olumjs",
+  olumDesc: "The VanillaJS developer’s platform.",
+  docsLink: "Docs",
+  toolsLink: "Tools",
+  faqLink: "FAQ",
+  seeDocs: "See Documentation",
+  simpleComp: "Simple Component",
+  quickStart: "Quick Start",
+  "olumInfoDesc-1": "Olum is a simple lightweight frontend library for providing spa experience,",
+  "olumInfoDesc-2":
+    "You don't need to learn a new library or a framework if you already know vanilla js, and this is the reason behind Olumjs creation.",
+  pros: "Pros",
+  reuseComp: "Reusable Components",
+  mgtSys: "State Management System",
+  spa: "Routing SPA",
+  libSize: "A size of 14kb including router, state management, other helpers",
+  codeWithVanilla: "Coding with Vanilla JS, the best feature",
+  copyRight: "Copyright © 2021 Olum Inc.",
+  wip: "Work in process",
+};

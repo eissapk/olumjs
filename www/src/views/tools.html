@@ -1,20 +1,22 @@
 <template>
   <div class="Tools">
     <Nav />
-
-    tools works</div>
+    <div class="ToolsInner">${"wip".trans()}</div>
+    <Footer />
+  </div>
 </template>
 
 <script>
   import Nav from "../components/layout/nav.js";
-
+  import Footer from "../components/layout/footer.js";
   export default class Tools {
     constructor() {}
     data() {
       return {
         name: "Tools",
         components: {
-          Nav
+          Nav,
+          Footer
         },
         template: this.template(),
         style: this.style(),
@@ -27,5 +29,9 @@
 </script>
 
 <style lang="scss">
-  .Tools {}
+  .Tools {
+    .ToolsInner {
+      height: calc(100vh - 110px);
+    }
+  }
 </style>

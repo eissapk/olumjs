@@ -1,0 +1,82 @@
+<template>
+  <div class="Lang">
+    <Nav />
+    <div class="btnsWrapper">
+      <button type="button" trans-btn="ar">العربية</button>
+      <button type="button" trans-btn="en">English</button>
+    </div>
+    <Footer />
+  </div>
+</template>
+
+<script>
+  import Nav from "../components/layout/nav.js";
+  import Footer from "../components/layout/footer.js";
+  import {
+    $
+  } from "olum";
+  import {
+    olum,
+    detectDir
+  } from "../app.mjs";
+  export default class Lang {
+    constructor() {}
+    data() {
+      return {
+        name: "Lang",
+        components: {
+          Nav,
+          Footer
+        },
+        template: this.template(),
+        style: this.style(),
+        render: this.render.bind(this),
+      };
+    }
+
+    render() {
+      this.translate();
+    }
+
+    translate() {
+      const container = $(".Lang");
+      container.on("click", e => {
+        if (e.target.hasAttribute("trans-btn")) {
+          const lang = e.target.getAttribute("trans-btn");
+          localStorage.setItem("lang", lang);
+          detectDir();
+          olum.navigate("/");
+        }
+      });
+    }
+  }
+</script>
+
+<style lang="scss">
+  .Lang {
+    .btnsWrapper {
+      text-align: center;
+      height: calc(100vh - 110px);
+      display: grid;
+      grid-template-columns: 1fr;
+      justify-items: center;
+      align-content:center;
+
+      button {
+        width: 150px;
+        height: 50px;
+        border: 1px solid $border;
+        outline: none;
+        background: transparent;
+        border-radius: $radius;
+        margin: 5px;
+        transition: background 0.1s ease-in-out;
+
+        &:hover {
+          background: $blue;
+          color: $white;
+        }
+      }
+    }
+  }
+</style>

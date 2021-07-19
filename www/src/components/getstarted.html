@@ -1,0 +1,56 @@
+<template>
+  <div class="GetStarted">
+
+    <!-- simple component -->
+    <div class="code-block">
+      <h1>${"simpleComp".trans()}</h1>
+      <section class="one-dark"><pre><code class="language-html">${simpleCompCode}</code></pre></section>
+    </div>
+
+    <!-- quick start -->
+    <div class="code-block">
+      <h1>${"quickStart".trans()}</h1>
+      <section class="one-dark"><pre><code class="language-bash">${quickStartCode}</code></pre></section>
+    </div>
+
+  </div>
+</template>
+
+<script>
+  import * as hljs from "../../public/highlight.js";
+  import simpleCompCode from "../docs/simplecomp.js";
+  import quickStartCode from "../docs/quickstart.js";
+  export default class GetStarted {
+    constructor() {}
+    data() {
+      return {
+        name: "GetStarted",
+        components: {},
+        template: this.template(),
+        style: this.style(),
+        render: this.render.bind(this),
+      };
+    }
+
+    render() {
+      hljs.highlightAll();
+    }
+  }
+</script>
+
+<style lang="scss">
+  .GetStarted {
+    margin-bottom: 50px;
+    h1 {
+      text-align: center;
+      font-size: 1.5rem;
+      font-weight: 400;
+      color: $mainTextColor;
+      margin: 0 0 20px;
+    }
+
+    .code-block{
+      padding-top: 50px;
+    }
+  }
+</style>

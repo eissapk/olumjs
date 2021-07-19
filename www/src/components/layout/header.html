@@ -1,13 +1,18 @@
 <template>
   <div class="Header">
     <h1>
-      <img src="${logo}" alt="Olum logo">
-      Olumjs
+      <img src="${logo}" alt="Olum logo" />
+      ${"olum".trans()}
     </h1>
-    <p>
-      The VanillaJS developer’s platform.
+    <p>${"olumDesc".trans()}</p>
+
+    <p class="statistics">
+      <img src="https://img.shields.io/npm/v/olum" alt="npm" />
+      <img src="https://img.shields.io/npm/dm/olum" alt="npm" />
+      <img src="https://img.shields.io/npm/l/olum" alt="npm" />
     </p>
 
+    <button type="button" to="/docs">${"seeDocs".trans()}</button>
   </div>
 </template>
 
@@ -31,20 +36,20 @@
 
 <style lang="scss">
   .Header {
-    padding-bottom: 30px;
+    padding: 30px 10px;
     background-color: $mainTextColor;
     color: white;
     text-align: center;
 
     h1 {
       font-size: 3rem;
-      padding: 30px 0;
-      line-height: 150px;
+      margin-bottom: 15px;
+      line-height: 100px;
       font-weight: 500;
 
       img {
         height: 150px;
-        vertical-align: top;
+        vertical-align: bottom;
         margin-right: 20px;
       }
     }
@@ -52,6 +57,22 @@
     p {
       font-size: 1.5rem;
       font-weight: 300;
+      line-height: 35px;
+    }
+
+    .statistics {
+      text-align: center;
+      margin-top: 15px;
+    }
+
+    button {
+      height: 40px;
+      margin-top: 15px;
+      background: $blue;
+      border: none;
+      color: white;
+      padding: 5px 20px;
+      border-radius: $radius;
     }
   }
 </style>
