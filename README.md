@@ -7,4 +7,4 @@
 
 ### The Official website repository of Olumjs.
 
-See [Documentation](https://github.com/olumjs/olum/wiki)
+See [Documentation](https://olumjs.github.io/docs)
