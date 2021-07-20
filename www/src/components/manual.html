@@ -130,9 +130,23 @@
     article {
       float: right;
     }
+    button.toggleMenuBtn {
+      transform: rotate(180deg);
+      left: auto;
+      right: 5px;
+    }
+
     aside {
       border: 0;
       border-left: 1px solid $border;
+
+      &.opened {
+        & ~ article {
+          button.toggleMenuBtn {
+            right: 245px;
+          }
+        }
+      }
     }
   }
 </style>
