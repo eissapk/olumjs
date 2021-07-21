@@ -14,13 +14,8 @@
 <script>
   import Nav from "../components/layout/nav.js";
   import Footer from "../components/layout/footer.js";
-  import {
-    $
-  } from "olum";
-  import {
-    olum,
-    detectDir
-  } from "../app.mjs";
+  import { $ } from "olum";
+  import { olum, detectDir } from "../app.mjs";
   export default class Lang {
     constructor() {}
     data() {
@@ -28,7 +23,7 @@
         name: "Lang",
         components: {
           Nav,
-          Footer
+          Footer,
         },
         template: this.template(),
         style: this.style(),

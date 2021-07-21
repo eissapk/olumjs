@@ -4,6 +4,8 @@
     <App-Header />
     <App-Info />
     <App-GetStarted />
+    <App-EcoSystem />
+    <App-Contributors />
     <App-Footer />
   </div>
 </template>
@@ -13,24 +15,25 @@
   import Header from "../components/layout/header.js";
   import Info from "../components/info.js";
   import GetStarted from "../components/getstarted.js";
+  import EcoSystem from "../components/ecosystem.js";
+  import Contributors from "../components/contributors.js";
   import Footer from "../components/layout/footer.js";
   export default class Home {
     data() {
       return {
         name: "Home",
-        components: { Nav, Header, GetStarted, Info, Footer},
+        components: { Nav, Header, GetStarted, Info, EcoSystem, Contributors, Footer },
         template: this.template(),
         style: this.style(),
         render: this.render.bind(this),
       };
     }
 
-    render() { }
+    render() {}
   }
 </script>
 
 <style lang="scss">
   .Home {
-
   }
 </style>

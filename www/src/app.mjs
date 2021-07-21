@@ -44,22 +44,10 @@ export function detectDir() {
 }
 
 const routes = [
-  {
-    path: "/",
-    comp: Home,
-  },
-  {
-    path: "/docs",
-    comp: Docs,
-  },
-  {
-    path: "/faq",
-    comp: FAQ,
-  },
-  {
-    path: "/lang",
-    comp: Lang,
-  },
+  { path: "/", comp: Home },
+  { path: "/docs", comp: Docs },
+  { path: "/faq", comp: FAQ },
+  { path: "/lang", comp: Lang },
 ];
 
 export const olum = new Olum({

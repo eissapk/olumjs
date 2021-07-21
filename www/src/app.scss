@@ -3,7 +3,7 @@
 @import "../src/styles/mixins.scss";
 @include font("./assets/fonts");
 // @import "../src/styles/atom-one-dark.scss";
-@import '../src/styles/atom-one-light.scss';
+@import "../src/styles/atom-one-light.scss";
 
 * {
   box-sizing: border-box;
@@ -39,6 +39,10 @@ p,
 ul {
   margin: 0;
   padding: 0;
+}
+
+ul {
+  list-style-type: none;
 }
 
 button {
