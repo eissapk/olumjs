@@ -1,7 +1,10 @@
 <template>
   <div class="FAQ">
     <App-Nav />
-    <div class="FAQInner">${"wip".trans()}</div>
+    <div class="innerFAQ">
+      <h1>${"faqTitle".trans()}</h1>
+      <section></section>
+    </div>
     <App-Footer />
   </div>
 </template>
@@ -9,14 +12,61 @@
 <script>
   import Nav from "../components/layout/nav.js";
   import Footer from "../components/layout/footer.js";
+  import { $, debug } from "olum";
   export default class FAQ {
-    constructor() {}
+    faqArr = [
+      {
+        q: "q1".trans(),
+        a: "a1".trans(),
+      },
+      {
+        q: "q2".trans(),
+        a: "a2".trans(),
+      },
+      {
+        q: "q3".trans(),
+        a: "a3".trans(),
+      },
+      {
+        q: "q4".trans(),
+        a: "a4".trans(),
+      },
+      {
+        q: "q5".trans(),
+        a: "a5".trans(),
+      },
+      {
+        q: "q6".trans(),
+        a: "a6".trans(),
+      },
+      {
+        q: "q7".trans(),
+        a: "a7".trans(),
+      },
+      {
+        q: "q8".trans(),
+        a: "a8".trans(),
+      },
+      {
+        q: "q9".trans(),
+        a: "a9".trans(),
+      },
+      {
+        q: "q10".trans(),
+        a: "a10".trans(),
+      },
+      {
+        q: "q11".trans(),
+        a: "a11".trans(),
+      },
+    ];
+
     data() {
       return {
         name: "FAQ",
         components: {
           Nav,
-          Footer
+          Footer,
         },
         template: this.template(),
         style: this.style(),
@@ -24,14 +74,60 @@
       };
     }
 
-    render() {}
+    render() {
+      // inject articles
+      const container = $(".innerFAQ section");
+      container.innerHTML = this.faqArr.map(obj => `<article><h1 class="toggleBtn">${obj.q}</h1><p>${obj.a}</p></article>`).join("");
+
+      // toggle articles
+      const article = $(".innerFAQ section article", true);
+      container.on("click", e => (e.target.classList.contains("toggleBtn") ? e.target.nextElementSibling.toggle() : null));
+    }
   }
 </script>
 
 <style lang="scss">
   .FAQ {
-    .FAQInner {
-      height: calc(100vh - 110px);
+    .innerFAQ {
+      min-height: calc(100vh - 110px);
+      padding: 50px 10px;
+      max-width: 700px;
+      margin: 0 auto;
+      overflow: hidden;
+      > h1 {
+        font-size: 1.5rem;
+        font-weight: 400;
+        color: $mainTextColor;
+        margin: 0 0 20px;
+      }
+
+      section {
+        article {
+          background-color: $oneLight;
+          margin-top: 20px;
+          padding: 10px 20px;
+          border-radius: 5px;
+          border: 1px solid $border;
+          width:100%;
+          h1 {
+            font-size: 1.2rem;
+            font-weight: 400;
+            color: $mainTextColor;
+            padding: 10px 0;
+            cursor: pointer;
+          }
+          p {
+            height: 0;
+            overflow: hidden;
+            font-weight: 400;
+            color: $subTextColor;
+            line-height: 26px;
+            a {
+              color: $red;
+            }
+          }
+        }
+      }
     }
   }
 </style>

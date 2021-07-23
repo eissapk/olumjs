@@ -10,7 +10,6 @@ import ar from "./locales/ar.js";
 localize({ en, ar });
 
 function localize(obj) {
-  debug("localize method ran!");
   detectDir();
   String.prototype.i18n = obj;
   String.prototype.trans = function trans() {
