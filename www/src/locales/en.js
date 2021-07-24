@@ -49,7 +49,7 @@ export default {
   q9: "Is there a hot reload?",
   a9: "Yes If you used the CLI, see Its <a href='https://olumjs.github.io/docs' target='_blank'>Docs</a>",
   q10: "Can I use olumjs without the CLI tool?",
-  a10: "Yes but the CDN and its docs are not ready yet",
+  a10: "Yes but you will be needing to set up your own bundler such as webpack once you decide to deploy your app",
   q11: "Can I use other libraries within olum app such as bootstrap?",
   a11: "Yes you can install for example bootstrap via npm at the root of your project and import it in app.scss or via the CDN in index.html",
 };
