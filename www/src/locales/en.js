@@ -39,7 +39,7 @@ export default {
   q4: "Does olumjs have a VScode extension?",
   a4: "Yes here is the official <a href='https://marketplace.visualstudio.com/items?itemName=eissapk.olum' target='_blank'>olumjs extension</a>",
   q5: "Does olumjs have a devtool?",
-  a5: "Yes but It's not a browser extension, It's integrated with your app Itself, <br/>See Its <a href='https://olumjs.github.io/docs' target='_blank'>Docs</a> and download it from <a href='https://raw.githubusercontent.com/olumjs/olum-devtool/master/devtool.js' target='_blank'></a>",
+  a5: "Yes but It's not a browser extension, It's integrated with your app Itself, <br/>See Its <a href='https://olumjs.github.io/docs' target='_blank'>Docs</a> and download it from <a href='https://raw.githubusercontent.com/olumjs/olum-devtool/master/devtool.js' target='_blank'>here</a>",
   q6: "Does olumjs have a CLI tool?",
   a6: "Yes there Is a command-line interface for generating boilerplate to get started your app asap, see Its <a href='https://olumjs.github.io/docs' target='_blank'>Docs</a>",
   q7: "Is there a Router?",
