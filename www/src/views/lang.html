@@ -3,8 +3,8 @@
     <App-Nav />
     <div class="langsWrapper">
       <div class="btnsWrapper">
-        <button type="button" trans-btn="ar">العربية</button>
-        <button type="button" trans-btn="en">English</button>
+        <button type="button" tolang="ar">العربية</button>
+        <button type="button" tolang="en">English</button>
       </div>
     </div>
     <App-Footer />
@@ -31,21 +31,8 @@
       };
     }
 
-    render() {
-      this.translate();
-    }
+    render() {}
 
-    translate() {
-      const container = $(".Lang");
-      container.on("click", e => {
-        if (e.target.hasAttribute("trans-btn")) {
-          const lang = e.target.getAttribute("trans-btn");
-          localStorage.setItem("lang", lang);
-          detectDir();
-          olum.navigate("/");
-        }
-      });
-    }
   }
 </script>
 
