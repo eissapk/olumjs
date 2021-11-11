@@ -1,7 +1,7 @@
 <template>
   <div class="Header">
     <h1>
-      <img src="${logo}" alt="Olum logo" />
+      <img src="assets/logo.png" alt="Olum logo" />
       ${"olum".trans()}
     </h1>
     <p>${"olumDesc".trans()}</p>
@@ -17,19 +17,7 @@
 </template>
 
 <script>
-  import logo from "../../assets/logo.png";
   export default class Header {
-    constructor() {}
-    data() {
-      return {
-        name: "Header",
-        components: {},
-        template: this.template(),
-        style: this.style(),
-        render: this.render.bind(this),
-      };
-    }
-
     render() {}
   }
 </script>

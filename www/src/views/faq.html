@@ -12,7 +12,7 @@
 <script>
   import Nav from "../components/layout/nav.js";
   import Footer from "../components/layout/footer.js";
-  import { $, debug } from "olum";
+  import { $, debug } from "olum-helpers";
   export default class FAQ {
     faqArr = [
       {
@@ -61,19 +61,6 @@
       },
     ];
 
-    data() {
-      return {
-        name: "FAQ",
-        components: {
-          Nav,
-          Footer,
-        },
-        template: this.template(),
-        style: this.style(),
-        render: this.render.bind(this),
-      };
-    }
-
     render() {
       // inject articles
       const container = $(".innerFAQ section");
@@ -117,8 +104,6 @@
             cursor: pointer;
           }
           p {
-            height: 0;
-            overflow: hidden;
             font-weight: 400;
             color: $subTextColor;
             line-height: 26px;

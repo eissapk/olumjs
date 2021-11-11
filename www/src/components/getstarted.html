@@ -14,21 +14,12 @@
 <script>
   import * as hljs from "../../public/highlight.js";
   import marked from "marked";
-  import { Origin, debug, $ } from "olum";
+  import { Origin, debug, $ } from "olum-helpers";
   export default class GetStarted {
     getStartedArr = ["Simple-Component", "Quick-Start"]; // md files & classes to be rendered in the home page
     version = "master";
     path = "docs/home";
-    data() {
-      return {
-        name: "GetStarted",
-        components: {},
-        template: this.template(),
-        style: this.style(),
-        render: this.render.bind(this),
-      };
-    }
-
+    
     render() {
       this.origin = new Origin();
       this.recursive();

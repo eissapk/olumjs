@@ -10,10 +10,10 @@
   import Nav from "../components/layout/nav.js";
   import Manual from "../components/manual.js";
   import Footer from "../components/layout/footer.js";
-  import { olum } from "../app.mjs";
+  import router from "../router/index.js";
   import * as hljs from "../../public/highlight.js";
   import marked from "marked";
-  import { Origin, $, debug } from "olum";
+  import { Origin, $, debug } from "olum-helpers";
 
   export default class Docs {
     // md files to be rendered in the docs page
@@ -34,20 +34,6 @@
     ];
     version = "master";
 
-    data() {
-      return {
-        name: "Docs",
-        components: {
-          Nav,
-          Footer,
-          Manual,
-        },
-        template: this.template(),
-        style: this.style(),
-        render: this.render.bind(this),
-      };
-    }
-
     render() {
       // select stuff
       this.origin = new Origin();
@@ -56,7 +42,7 @@
       if (ul) {
         const links = this.docsArr.map(file => `<li><a href="#${file}" data-file="${file}">${file}</a></li>`).join("");
         ul.innerHTML = links;
-        olum.freeze(); // stop router default behavior
+        router.freeze(); // stop router default behavior
         // event
         ul.on("click", e => {
           if (e.target.nodeName === "A") {
