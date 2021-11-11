@@ -15,24 +15,24 @@
   import marked from "marked";
   import { Origin, $, debug } from "olum-helpers";
 
+  // md files to be rendered in the docs page
+  const docsArr = [
+    "CLI",
+    "Settings",
+    "Router",
+    "Router-Methods",
+    "Create-Component",
+    "Register-Component",
+    "Create-Service",
+    "Share-Data-Between-Components",
+    "Devtool",
+    "Translation",
+    "Use-Helpers",
+    "Notes",
+    "CDN",
+  ];
+  const version = "master";
   export default class Docs {
-    // md files to be rendered in the docs page
-    docsArr = [
-      "CLI",
-      "Settings",
-      "Router",
-      "Router-Methods",
-      "Create-Component",
-      "Register-Component",
-      "Create-Service",
-      "Share-Data-Between-Components",
-      "Devtool",
-      "Translation",
-      "Use-Helpers",
-      "Notes",
-      "CDN",
-    ];
-    version = "master";
 
     render() {
       // select stuff
@@ -40,7 +40,7 @@
       const ul = $(".Manual aside ul");
 
       if (ul) {
-        const links = this.docsArr.map(file => `<li><a href="#${file}" data-file="${file}">${file}</a></li>`).join("");
+        const links = docsArr.map(file => `<li><a href="#${file}" data-file="${file}">${file}</a></li>`).join("");
         ul.innerHTML = links;
         router.freeze(); // stop router default behavior
         // event
@@ -63,7 +63,7 @@
     }
 
     showDocs(file) {
-      const url = "https://raw.githubusercontent.com/olumjs/olum/" + this.version + "/docs/" + file + ".md";
+      const url = "https://raw.githubusercontent.com/olumjs/olum/" + version + "/docs/" + file + ".md";
       const container = $(".MarkdownEditor");
 
       // fetch docs
