@@ -60,7 +60,7 @@
         const firstLink = $(ul).get("li a");
         if (firstLink) firstLink.click();
       }
-      this.getVersions();
+      // this.getVersions();
     }
 
     showDocs(file) {
@@ -102,32 +102,41 @@
     }
 
     handleMap(map) {
-      console.warn(map, 1);
-      // map.forEach(repoArr => {
-      //   repoArr.forEach(obj => {
-      //     const sha = obj.sha;
-      //     const repo = obj.name;
-      //     console.warn({obj, sha, repo});
-      //     // this.getFiles(sha, repo).then(debug).catch(debug);
-      //   });
-      // });
-
       const recursive = (i = 0) => {
         const repoArr = map[i];
-
         const recursive2 = (x = 0) => {
           const obj = repoArr[x]; // each version of each repo
           console.log(obj);
 
-          // next obj if any
-          if (x + 1 < repoArr.length) recursive2(x + 1);
-          // next arr if any after reaching last obj
-          else if (x === repoArr.length - 1 && i + 1 < map.length) recursive(i + 1);
-        };
+          this.getFiles(obj.sha, obj.name)
+            .then(files => {
+              if (files) obj.files = files;
 
+              // next obj if any
+              if (x + 1 < repoArr.length) recursive2(x + 1);
+              // next arr if any after reaching last obj
+              else if (x === repoArr.length - 1 && i + 1 < map.length) recursive(i + 1);
+              // if all are done
+              else if (x === repoArr.length - 1 && i === map.length - 1) this.foo(map);
+            })
+            .catch(console.error);
+        };
         recursive2();
       };
       recursive();
+    }
+
+    foo(map) {
+      const tree = Object.create(null);
+      map.forEach(arr => {
+        arr = arr.filter(item => item.files);
+        if (arr.length) {
+          const repo = arr[0].name;
+          tree[repo] = { ...arr };
+        }
+      });
+
+      console.warn("tree", tree);
     }
 
     getFiles(sha, repo) {
@@ -136,14 +145,18 @@
         this.origin
           .get("https://api.github.com/repos/olumjs/" + repo + "/git/trees/" + sha, { headers })
           .then(res => {
-            const filesUrl = res.tree.find(item => item.path === "docs").url;
-            this.origin
-              .get(filesUrl, { headers })
-              .then(files => {
-                const names = files.tree.map(item => item.path);
-                resolve(names);
-              })
-              .catch(reject);
+            const filesUrl = res.tree.find(item => item.path === "docs");
+            if (typeof filesUrl != "undefined") {
+              this.origin
+                .get(filesUrl.url, { headers })
+                .then(files => {
+                  const names = files.tree.map(item => item.path);
+                  resolve(names);
+                })
+                .catch(reject);
+            } else {
+              resolve(null);
+            }
           })
           .catch(reject);
       });
