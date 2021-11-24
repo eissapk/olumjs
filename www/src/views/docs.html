@@ -60,7 +60,7 @@
         const firstLink = $(ul).get("li a");
         if (firstLink) firstLink.click();
       }
-      // this.getVersions();
+      this.getBranches();
     }
 
     showDocs(file) {
@@ -80,7 +80,7 @@
         .catch(console.error);
     }
 
-    getVersions() {
+    getBranches() {
       const map = [];
       const recursive = (num = 0) => {
         const repo = repos[num];
@@ -117,7 +117,7 @@
               // next arr if any after reaching last obj
               else if (x === repoArr.length - 1 && i + 1 < map.length) recursive(i + 1);
               // if all are done
-              else if (x === repoArr.length - 1 && i === map.length - 1) this.foo(map);
+              else if (x === repoArr.length - 1 && i === map.length - 1) this.TOC(map);
             })
             .catch(console.error);
         };
@@ -126,17 +126,44 @@
       recursive();
     }
 
-    foo(map) {
+    TOC(map) {
       const tree = Object.create(null);
       map.forEach(arr => {
         arr = arr.filter(item => item.files);
         if (arr.length) {
           const repo = arr[0].name;
-          tree[repo] = { ...arr };
+          tree[repo] = [...arr];
         }
       });
-
+      const container = $(".Manual aside ul");
       console.warn("tree", tree);
+
+      let content = "";
+
+      for (let key in tree) {
+        const options = tree[key].map((item, index) => {
+          let selected;
+          if (index === 0) selected = "selected";
+          else selected = "";
+          return `<option ${selected} value="${item.version}">${item.version}</option>`;
+        }).join("");
+
+        content += tree[key].map((item, index) => {
+          let initial;
+          if (index === 0) initial = `<ul>${item.files.map(file => `<li>${file}</li>`).join("")}</ul>`;
+          else initial = "";
+          return `
+            <div>
+              <h4>${item.name}</h4>
+              <select>${options}</select>
+              ${initial}
+            <div>
+            `;
+          }).join("");
+      }
+      
+      container.innerHTML = content;
+      
     }
 
     getFiles(sha, repo) {
