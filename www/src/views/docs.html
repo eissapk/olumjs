@@ -135,35 +135,17 @@
           tree[repo] = [...arr];
         }
       });
-      const container = $(".Manual aside ul");
       console.warn("tree", tree);
 
-      let content = "";
-
-      for (let key in tree) {
-        const options = tree[key].map((item, index) => {
-          let selected;
-          if (index === 0) selected = "selected";
-          else selected = "";
-          return `<option ${selected} value="${item.version}">${item.version}</option>`;
-        }).join("");
-
-        content += tree[key].map((item, index) => {
-          let initial;
-          if (index === 0) initial = `<ul>${item.files.map(file => `<li>${file}</li>`).join("")}</ul>`;
-          else initial = "";
-          return `
-            <div>
-              <h4>${item.name}</h4>
-              <select>${options}</select>
-              ${initial}
-            <div>
-            `;
-          }).join("");
+      for(let key in tree) {
+        const repoArr = tree[key];
+        let list = "";
+        repoArr.forEach(ver => {
+          list += "\n------"+key+" | "+ver.version+"------\n" + ver.files.map(file => `<li>${file}</li>`).join("");
+        });
+        console.warn(list);
       }
-      
-      container.innerHTML = content;
-      
+
     }
 
     getFiles(sha, repo) {
