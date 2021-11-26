@@ -15,69 +15,11 @@
   import marked from "marked";
   import { Origin, $, debug } from "olum-helpers";
 
-  // md files to be rendered in the docs page
   const repos = ["olum", "olum-router", "olum-cli", "olum-helpers", "olum-devtool"];
-  const docsArr = [
-    "CLI",
-    "Settings",
-    "Router",
-    "Router-Methods",
-    "Create-Component",
-    "Register-Component",
-    "Create-Service",
-    "Share-Data-Between-Components",
-    "Devtool",
-    "Translation",
-    "Use-Helpers",
-    "Notes",
-    "CDN",
-  ];
-  const version = "master";
   export default class Docs {
     render() {
-      // select stuff
       this.origin = new Origin();
-      const ul = $(".Manual aside ul");
-
-      if (ul) {
-        const links = docsArr.map(file => `<li><a href="#${file}" data-file="${file}">${file}</a></li>`).join("");
-        ul.innerHTML = links;
-        router.freeze(); // stop router default behavior
-        // event
-        ul.on("click", e => {
-          if (e.target.nodeName === "A") {
-            const file = e.target.getAttribute("data-file");
-            // reset class
-            const active = $(".Manual aside ul .active");
-            if (active) active.classList.remove("active");
-            // add class
-            e.target.classList.add("active");
-            // render docs
-            this.showDocs(file);
-          }
-        });
-        // show 1st guide
-        const firstLink = $(ul).get("li a");
-        if (firstLink) firstLink.click();
-      }
       this.getBranches();
-    }
-
-    showDocs(file) {
-      const url = "https://raw.githubusercontent.com/olumjs/olum/" + version + "/docs/" + file + ".md";
-      const container = $(".MarkdownEditor");
-
-      // fetch docs
-      this.origin
-        .get(url)
-        .then(res => {
-          if (container) {
-            container.innerHTML = marked(res);
-            hljs.highlightAll();
-            container.scrollIntoView();
-          }
-        })
-        .catch(console.error);
     }
 
     getBranches() {
@@ -137,15 +79,65 @@
       });
       console.warn("tree", tree);
 
-      for(let key in tree) {
+      let list = "";
+      for (let key in tree) {
         const repoArr = tree[key];
-        let list = "";
-        repoArr.forEach(ver => {
-          list += "\n------"+key+" | "+ver.version+"------\n" + ver.files.map(file => `<li>${file}</li>`).join("");
+        const repoName = repoArr[0].name;
+        const options = repoArr
+          .map((item, index, array) => `<option ${index === array.length - 1 ? "selected" : ""} value="${item.version}">${item.version}</option>`)
+          .join("");
+        list += `<div id="${repoName}">`;
+        list += "<h4>" + (repoName === "olum" ? "core" : repoName.replace("olum-", "")) + "</h4>";
+        list += "<select>" + options + "</select>";
+        repoArr.forEach((ver, index, array) => {
+          list +=
+            `<ul ${index === array.length - 1 ? "" : `class="hidden"`} data-repo="${ver.name}" data-ver="${ver.version}">` +
+            ver.files.map(file => `<li data-file="${file}">${file.replace(".md", "")}</li>`).join("") +
+            "</ul>";
         });
-        console.warn(list);
+        list += "</div>";
       }
+      const ul = $(".Manual aside ul");
+      ul.innerHTML = list;
 
+      this.enableTOC();
+    }
+
+    enableTOC() {
+      const ul = $(".Manual aside ul");
+      const container = $(".MarkdownEditor");
+      // show/hide version (branch) relative docs files
+      ul.on("change", e => {
+        if (e.target.nodeName === "SELECT") {
+          const parent = e.target.parentElement;
+          const uls = $(parent).get("ul", true);
+          uls.forEach(item => item.classList.add("hidden")); // reset
+          const currentUl = $(parent).get(`ul[data-ver="${e.target.value}"]`);
+          currentUl.classList.remove("hidden");
+        }
+      });
+
+      // fetch md file
+      ul.on("click", e => {
+        if (e.target.getAttribute("data-file")) {
+          const fileName = e.target.getAttribute("data-file");
+          const parent = e.target.parentElement;
+          const ver = parent.getAttribute("data-ver");
+          const repo = parent.getAttribute("data-repo");
+          const url = "https://raw.githubusercontent.com/olumjs/" + repo + "/" + ver + "/docs/" + fileName;
+          console.warn({ fileName, ver, repo, url });
+          this.origin
+            .get(url, { headers: { Accept: "application/vnd.github.v3+json" } })
+            .then(res => {
+              if (container) {
+                container.innerHTML = marked(res);
+                hljs.highlightAll();
+                container.scrollIntoView();
+              }
+            })
+            .catch(console.error);
+        }
+      });
     }
 
     getFiles(sha, repo) {
@@ -175,5 +167,8 @@
 
 <style lang="scss">
   .Docs {
+    .hidden {
+      display: none;
+    }
   }
 </style>
