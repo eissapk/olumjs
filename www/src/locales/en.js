@@ -15,7 +15,7 @@ export default {
   spa: "Routing SPA",
   libSize: "A size of 14kb including router, state management, other helpers",
   codeWithVanilla: "Coding with Vanilla JS, the best feature",
-  copyRight: "Copyright © 2021 Olum Inc.",
+  copyRight: "Copyright © 2022 Olum Inc.",
   wip: "Work in process",
   ecoSys: "EcoSystem",
   contributors: "Contributors",
